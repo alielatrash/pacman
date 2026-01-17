@@ -1,0 +1,269 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+    overflow: hidden;
+}
+
+.game-container {
+    text-align: center;
+    padding: 20px;
+    max-width: 900px;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 3.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.year {
+    font-size: 0.4em;
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    }
+    50% {
+        filter: brightness(1.2) drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+}
+
+.score-panel {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.score-item .label {
+    font-size: 0.8em;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+.score-item .value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    font-family: 'Courier New', monospace;
+}
+
+.canvas-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 15px;
+    box-shadow:
+        0 0 30px rgba(0, 255, 136, 0.3),
+        0 0 60px rgba(0, 136, 255, 0.2),
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+    background: #000;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    display: block;
+    border-radius: 15px;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-in-out;
+    border-radius: 15px;
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.overlay-content {
+    text-align: center;
+}
+
+.overlay-content h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.overlay-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #aaa;
+}
+
+.final-score {
+    font-size: 1.5em !important;
+    color: #00ff88 !important;
+}
+
+button {
+    background: linear-gradient(135deg, #00ff88, #00cc6f);
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
+    background: linear-gradient(135deg, #00ffaa, #00dd88);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 255, 136, 0.4);
+}
+
+.lives-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2em;
+}
+
+.lives-container .label {
+    color: #888;
+    letter-spacing: 2px;
+}
+
+#livesDisplay {
+    display: flex;
+    gap: 10px;
+}
+
+.life-icon {
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at 30% 30%, #FFFF00, #FFD700);
+    border-radius: 50%;
+    position: relative;
+    animation: float 2s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.life-icon::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 10px solid #000;
+    bottom: 5px;
+    right: -5px;
+    transform: rotate(-30deg);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.controls-hint {
+    margin-top: 20px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.controls-hint p {
+    animation: fadeInOut 3s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Score popup animation */
+@keyframes scorePopup {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(1.5);
+    }
+}
