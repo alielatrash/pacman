@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    font-size: 3em;
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    flex-wrap: wrap;
+}
+
+.game-info > div {
+    margin: 10px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.score span, .lives span, .level span {
+    color: #ffff00;
+    font-weight: bold;
+}
+
+#game-board {
+    display: inline-grid;
+    grid-template-columns: repeat(20, 20px);
+    gap: 0;
+    background: #000;
+    padding: 10px;
+    border-radius: 10px;
+    border: 3px solid #1e90ff;
+    box-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+    margin: 20px auto;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.wall {
+    background: #1e90ff;
+    border-radius: 2px;
+}
+
+.pellet {
+    background: #000;
+    position: relative;
+}
+
+.pellet::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffb8ae;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.power-pellet {
+    background: #000;
+    position: relative;
+}
+
+.power-pellet::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffff00;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.pacman {
+    background: #ffff00;
+    border-radius: 50%;
+    position: relative;
+    z-index: 10;
+}
+
+.pacman.right {
+    clip-path: polygon(100% 50%, 50% 0, 0 0, 0 100%, 50% 100%);
+}
+
+.pacman.left {
+    clip-path: polygon(0 50%, 50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.pacman.up {
+    clip-path: polygon(50% 0, 0 50%, 0 100%, 100% 100%, 100% 50%);
+}
+
+.pacman.down {
+    clip-path: polygon(50% 100%, 0 0, 0 50%, 100% 50%, 100% 0);
+}
+
+.ghost {
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    z-index: 9;
+}
+
+.ghost::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: inherit;
+    clip-path: polygon(0 0, 25% 100%, 50% 0, 75% 100%, 100% 0, 100% 100%, 0 100%);
+}
+
+.ghost-blinky {
+    background: #ff0000;
+}
+
+.ghost-pinky {
+    background: #ffb8ff;
+}
+
+.ghost-inky {
+    background: #00ffff;
+}
+
+.ghost-clyde {
+    background: #ffb852;
+}
+
+.ghost-scared {
+    background: #0000ff;
+    animation: flash 0.3s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { background: #0000ff; }
+    50% { background: #ffffff; }
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+.controls p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1em;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#game-message {
+    margin-top: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00;
+    min-height: 40px;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    #game-board {
+        grid-template-columns: repeat(20, 15px);
+    }
+
+    .cell {
+        width: 15px;
+        height: 15px;
+    }
+}
